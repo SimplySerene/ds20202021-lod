@@ -46,6 +46,7 @@ public class App
                 System.out.println("Popularity:" + a.getPopularity());
                 System.out.println("----------------");
             }
+            System.out.println(clientCred.getExpiresIn());
 
         } catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
             System.out.println(e.getMessage());
