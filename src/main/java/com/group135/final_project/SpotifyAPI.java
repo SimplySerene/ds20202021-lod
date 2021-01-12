@@ -13,6 +13,9 @@ import com.wrapper.spotify.requests.data.tracks.GetSeveralTracksRequest;
 
 import org.apache.hc.core5.http.ParseException;
 
+/**
+ *  Wraps the spotiy api. Should be merged with SpotifyService.
+ */
 public class SpotifyAPI {
     
     /**
@@ -27,25 +30,23 @@ public class SpotifyAPI {
         .setClientId(clientId)
         .setClientSecret(clientSecret).build();
     
+
     public static Playlist retrievePlaylist(String playlistId) 
                 throws IOException, SpotifyWebApiException, ParseException {
         setupAccessToken();
-        // Build the request
         GetPlaylistRequest playlistReq = api.getPlaylist(playlistId).build();
-        // Perform the request
         return playlistReq.execute();
     }
+
 
     public static Track[] retrieveTracksWithID(Collection<String> ids)
                 throws IOException, SpotifyWebApiException, ParseException {   
         setupAccessToken();
-        // Build the request
         String commaSeperatedList = String.join(",", ids);
         GetSeveralTracksRequest severalTrackRequest = api.getSeveralTracks(commaSeperatedList).build();
-        
-        // Perform the request
         return severalTrackRequest.execute();
     }
+
 
     private static void setupAccessToken() 
                 throws IOException, SpotifyWebApiException, ParseException {
