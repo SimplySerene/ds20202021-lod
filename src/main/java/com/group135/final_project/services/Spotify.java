@@ -55,6 +55,6 @@ public class Spotify {
     private boolean needsFreshAccessToken() {
         return expiresIn == null
                 // We refresh 1 minute too early, just to be sure
-                || expiresIn.isAfter(LocalDateTime.now().minusMinutes(1));
+                || expiresIn.isBefore(LocalDateTime.now().minusMinutes(1));
     }
 }

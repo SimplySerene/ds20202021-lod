@@ -10,6 +10,17 @@ function App() {
   const [content, setContent] = useState("");
   const [playlist, setPlaylist] = useState(undefined)
 
+  async function onPlaylistSelected(playlist) {
+      if (!playlist || !playlist.id) {
+          return
+      }
+
+      const response = await fetch(`/api/playlist-info/${playlist.id}`)
+      const results = await response.json()
+
+      console.log(results)
+  }
+
   return (
     <div className="map-container">
         <h1 style={{textAlign: 'center'}}>{
@@ -18,6 +29,7 @@ function App() {
 
         <PlaylistSearch onSuggestionSelected={(event, { suggestion }) => {
             setPlaylist(suggestion)
+            onPlaylistSelected(suggestion)
         }} />
 
         <div style={{marginTop: '15px'}}></div>
