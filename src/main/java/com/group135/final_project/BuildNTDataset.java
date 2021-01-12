@@ -1,12 +1,9 @@
 package com.group135.final_project;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
@@ -14,6 +11,10 @@ import com.wrapper.spotify.model_objects.specification.Playlist;
 import com.wrapper.spotify.model_objects.specification.PlaylistTrack;
 import com.wrapper.spotify.model_objects.specification.Track;
 
+
+/**
+ * Build an N-triple dataset.
+ */
 public class BuildNTDataset {
     
     private static final String playlistId = "70HWV2IYmIlGC0iiVNpJmK";
@@ -36,7 +37,7 @@ public class BuildNTDataset {
         Writer writer = new FileWriter(file);
 
         /**
-         * Get all track id's and request the corresponding songs
+         * Get all track id's and request the corresponding songs.
          * Playlist responses do not include artist name.
          */
         Set<String> trackIds = new HashSet<>();
