@@ -56,7 +56,7 @@
     border-top: 1px solid #ddd;
 }
 
-.react-autosuggest__suggestion--focused {
+.react-autosuggest__suggestion[aria-selected="true"] {
     background-color: #0C7EAF;
     color: #fff;
 }
@@ -72,6 +72,7 @@
     font-weight: bold;
 }
 
-.react-autosuggest__suggestion--focused .highlight {
-    color: #120000;
+.react-autosuggest__suggestion[aria-selected="true"] .highlight {
+    color: white;
+    font-weight: 300;
 }

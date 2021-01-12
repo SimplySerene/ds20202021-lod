@@ -2,25 +2,9 @@ import Autosuggest from 'react-autosuggest'
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match/index'
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse/index'
 import { useState } from 'react'
+import { PlaylistImage } from './PlaylistImage'
+import debounce from 'lodash.debounce'
 import './PlaylistSearch.css'
-
-function PlaylistImage({ playlist }) {
-    const size = 35;
-
-    if (Array.isArray(playlist.images) && playlist.images.length > 0) {
-        return (<img
-            alt={playlist.name}
-            src={playlist.images[0].url}
-            height={size} width={size}
-        />)
-    }
-
-    return (<div style={{
-        width: `${size}px`,
-        height: `${size}px`,
-        backgroundColor: 'whitesmoke',
-    }}></div>)
-}
 
 function PlaylistSearchResult({ suggestion, query }) {
     const name = suggestion.name
@@ -44,29 +28,33 @@ function PlaylistSearchResult({ suggestion, query }) {
     </div>)
 }
 
+const fetchSuggestions = debounce(async function fetchSuggestions(query, setSuggestions) {
+    if (!query || query.length <=2 ) {
+        return
+    }
+
+    const response = await fetch(`/api/playlist-search?query=${query}`)
+    const results = await response.json()
+
+    if (!Array.isArray(results)) {
+        setSuggestions([])
+        return
+    }
+
+    setSuggestions(results)
+}, 500)
+
 export function PlaylistSearch({ onSuggestionSelected }) {
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
 
-    async function fetchSuggestions() {
-        const response = await fetch(`/api/playlist-search?query=${query}`)
-        const results = await response.json()
-
-        if (!Array.isArray(results)) {
-            setSuggestions([])
-            return
-        }
-
-        setSuggestions(results)
-    }
-
     return (
         <Autosuggest
             suggestions={suggestions}
-            onSuggestionsFetchRequested={fetchSuggestions}
+            onSuggestionsFetchRequested={() => {fetchSuggestions(query, setSuggestions)}}
             onSuggestionsClearRequested={() => setSuggestions([])}
             getSuggestionValue={suggestion => suggestion.name}
-            renderSuggestion={suggestion => (
+            renderSuggestion={(suggestion, { query }) => (
                 <PlaylistSearchResult suggestion={suggestion} query={query} />
             )}
             inputProps={{
