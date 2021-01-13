@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(undefined)
   const [artistsPerCountry, setArtistsPerCountry] = useState({});
+  const [artists, setArtists] = useState([]);
 
   useEffect(function () {
       (async function onPlaylistSelected() {
@@ -34,6 +35,7 @@ function App() {
               }
           }
 
+          setArtists(results)
           setArtistsPerCountry(newArtistsPerCountry)
           setLoading(false)
       })()
@@ -55,6 +57,10 @@ function App() {
             <MapChart setTooltipContent={setContent} artistsPerCountry={artistsPerCountry} />
             <ReactTooltip>{content}</ReactTooltip>
         </>) }
+
+        { playlist && !loading && artists && artistsPerCountry ? <>
+            <p>{Object.keys(artistsPerCountry).length} / {artists.length} artists were used</p>
+        </> : null}
     </div>
   );
 }
