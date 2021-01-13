@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 
 import './App.css';
@@ -8,18 +8,36 @@ import {Playlist} from "./Playlist";
 
 function App() {
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(undefined)
+  const [artistsPerCountry, setArtistsPerCountry] = useState({});
 
-  async function onPlaylistSelected(playlist) {
-      if (!playlist || !playlist.id) {
-          return
-      }
+  useEffect(function () {
+      (async function onPlaylistSelected() {
+          if (!playlist || !playlist.id) {
+              return
+          }
 
-      const response = await fetch(`/api/playlist-info/${playlist.id}`)
-      const results = await response.json()
+          setLoading(true)
 
-      console.log(results)
-  }
+          const response = await fetch(`/api/playlist-info/${playlist.id}`)
+          const results = await response.json()
+
+          const newArtistsPerCountry = {};
+
+          for (const enhancedArtist of results) {
+              for (const countryCode of (enhancedArtist.lodInfo.countryCodes || [])) {
+                  if (!newArtistsPerCountry[countryCode]) {
+                      newArtistsPerCountry[countryCode] = []
+                  }
+                  newArtistsPerCountry[countryCode].push(enhancedArtist.spotifyArtist)
+              }
+          }
+
+          setArtistsPerCountry(newArtistsPerCountry)
+          setLoading(false)
+      })()
+  }, [playlist])
 
   return (
     <div className="map-container">
@@ -27,17 +45,16 @@ function App() {
             playlist ? playlist.name : 'Linked Open Spotify'
         }</h1>
 
-        <PlaylistSearch onSuggestionSelected={(event, { suggestion }) => {
-            setPlaylist(suggestion)
-            onPlaylistSelected(suggestion)
-        }} />
+        <PlaylistSearch onSuggestionSelected={(event, { suggestion }) => setPlaylist(suggestion)} />
 
         <div style={{marginTop: '15px'}}></div>
 
         { playlist ? <Playlist playlist={playlist} /> : null }
 
-        <MapChart setTooltipContent={setContent} />
-        <ReactTooltip>{content}</ReactTooltip>
+        { loading ? "Loading (this might take a while)... " : (<>
+            <MapChart setTooltipContent={setContent} artistsPerCountry={artistsPerCountry} />
+            <ReactTooltip>{content}</ReactTooltip>
+        </>) }
     </div>
   );
 }
