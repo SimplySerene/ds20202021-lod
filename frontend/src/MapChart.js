@@ -6,6 +6,7 @@ import {
     Geography
 } from "react-simple-maps";
 import { scaleLinear } from "d3-scale";
+import {TooltipContent} from "./TooltipContent";
 
 const geoUrl =
     "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
@@ -24,6 +25,7 @@ const MapChart = ({ setTooltipContent, artistsPerCountry }) => {
                         {({ geographies }) =>
                             geographies.map(geo => {
                                 const code = geo.properties.ISO_A2
+                                const country = geo.properties.NAME
                                 const artists = artistsPerCountry[code] || []
 
                                 return (
@@ -31,11 +33,10 @@ const MapChart = ({ setTooltipContent, artistsPerCountry }) => {
                                         key={geo.rsmKey}
                                         geography={geo}
                                         onMouseEnter={() => {
-                                            setTooltipContent(<ul>{
-                                                artists.map(artist => (
-                                                    <li key={artist.id}>{ artist.name }</li>
-                                                ))
-                                            }</ul>);
+                                            setTooltipContent(<TooltipContent
+                                                country={country}
+                                                artists={artists}
+                                            />);
                                         }}
                                         onMouseLeave={() => {
                                             setTooltipContent("");
