@@ -43,18 +43,18 @@ public class SpotifyService {
                 .map(item -> (Track) item)
                 .flatMap(track -> Arrays.stream(track.getArtists()))
                 .collect(Collectors.toList());
-
+        
         // the ArtistSimplified class unfortunately does not implement hashcode or equals...
         var ids = new HashSet<String>();
         var uniqueArtists = new ArrayList<ArtistSimplified>();
-
+        
         for (var artist : artists) {
             if (!ids.contains(artist.getId())) {
                 ids.add(artist.getId());
                 uniqueArtists.add(artist);
             }
         }
-
+        
         return uniqueArtists;
     }
 
