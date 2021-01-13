@@ -1,12 +1,16 @@
 package com.group135.final_project.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 public class LODArtistInfo {
-    List<String> countryCodes = new ArrayList<>();
+    private Set<String> countryCodes;
 
-    public LODArtistInfo(List<String> countryCodes) {
+    public LODArtistInfo(Set<String> countryCodes) {
         this.countryCodes = countryCodes;
     }
+
+    public Set<String> getCountryCodes() {
+        return countryCodes;
+    }
+
 }

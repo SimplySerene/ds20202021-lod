@@ -2,13 +2,12 @@ package com.group135.final_project.services;
 
 import java.util.Collection;
 
-import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
 import org.springframework.stereotype.Service;
 
 /**
- * Responsible for fetching artist metadata from <a href="https://wikidata.org">dbpedia</a>.
+ * Responsible for fetching artist metadata from <a href="https://wikidata.org">wikidata</a>.
  */
 @Service
 public class LODService {
@@ -17,16 +16,16 @@ public class LODService {
     
     private static final String UNFINISHED_QUERY = """ 
     PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-    SELECT distinct ?artist ?isoCode ?citizenCountryIso WHERE {
+    SELECT distinct ?spotifyId ?artistIso ?citizenIso WHERE {
         ?artist wdt:P1902 $spotifyId
         FILTER(?spotifyId in (%s))
         OPTIONAL {
           ?artist wdt:P495 ?country .
-          ?country wdt:P297 ?isoCode .
+          ?country wdt:P297 ?artistIso .
         }
         OPTIONAL {
           ?artist wdt:P27 ?citizenCountry .
-          ?citizenCountry wdt:P297 ?citizenCountryIso .
+          ?citizenCountry wdt:P297 ?citizenIso .
         }
       }
     """;
@@ -36,7 +35,7 @@ public class LODService {
      * Given a SPARQL query, executes it at a the SPARQL ENDPOINT of WikiData
      */
     public static ResultSet fetchWikiData(String query) {
-        QueryExecution queryExecution =  QueryExecutionFactory.sparqlService(WIKIDATA_SPARQL_ENDPOINT, query);
+        var queryExecution =  QueryExecutionFactory.sparqlService(WIKIDATA_SPARQL_ENDPOINT, query);
         return queryExecution.execSelect();
     }
 

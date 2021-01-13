@@ -16,8 +16,13 @@ public class Test {
     """;
     private static List<String> spotifyIds = Arrays.asList(str.split("\\s*,\\s*"));
 
+    /**
+     * Run in debug with a breakpoint on String 's'. Inspect 'res'.
+     */
     public static void main(String[] args) throws Exception{
         ResultSet res = LODService.fetchArtistInfo(spotifyIds);
         String s = "breakpoint";
+
+        
     }
 }
