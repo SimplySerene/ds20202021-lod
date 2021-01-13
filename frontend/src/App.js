@@ -12,6 +12,7 @@ function App() {
   const [playlist, setPlaylist] = useState(undefined)
   const [artistsPerCountry, setArtistsPerCountry] = useState({});
   const [artists, setArtists] = useState([]);
+  const [numArtistResolved, setNumArtistsResolved] = useState(0);
 
   useEffect(function () {
       (async function onPlaylistSelected() {
@@ -24,7 +25,8 @@ function App() {
           const response = await fetch(`/api/playlist-info/${playlist.id}`)
           const results = await response.json()
 
-          const newArtistsPerCountry = {};
+          const newArtistsPerCountry = {}
+          let newNumArtistResolved = 0
 
           for (const enhancedArtist of results) {
               for (const countryCode of (enhancedArtist.lodInfo.countryCodes || [])) {
@@ -32,10 +34,12 @@ function App() {
                       newArtistsPerCountry[countryCode] = []
                   }
                   newArtistsPerCountry[countryCode].push(enhancedArtist.spotifyArtist)
+                  newNumArtistResolved++
               }
           }
 
           setArtists(results)
+          setNumArtistsResolved(newNumArtistResolved)
           setArtistsPerCountry(newArtistsPerCountry)
           setLoading(false)
       })()
@@ -59,7 +63,7 @@ function App() {
         </>) }
 
         { playlist && !loading && artists && artistsPerCountry ? <>
-            <p>{Object.keys(artistsPerCountry).length} / {artists.length} artists were used</p>
+            <p>{numArtistResolved} / {artists.length} artists were used</p>
         </> : null}
     </div>
   );
