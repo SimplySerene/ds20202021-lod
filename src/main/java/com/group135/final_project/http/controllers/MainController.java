@@ -52,8 +52,8 @@ public class MainController {
         // Create a mapping from the spotifyID to a set of the CountryISO's.
         Map<String, Set<String>> lodMapping = new HashMap<>();
         
-        for (QuerySolution sol = artistLOD.next(); artistLOD.hasNext() ; sol = artistLOD.next()) {
-
+        for (; artistLOD.hasNext() ;) {
+            QuerySolution sol = artistLOD.next();
             String spotifyId = sol.get("spotifyId").asLiteral().getString();
             var set = new HashSet<String>();
 

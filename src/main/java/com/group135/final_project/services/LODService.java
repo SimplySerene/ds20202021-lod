@@ -47,6 +47,7 @@ public class LODService {
       // Enclose all ID's in quotation marks
       spotifyIDs = spotifyIDs.stream().map(s -> '"' + s + '"').collect(Collectors.toList());
       String query = String.format(UNFINISHED_QUERY, String.join(",", spotifyIDs));
+      System.out.println("query: ---\n" + query + "\n---\n");
       return fetchWikiData(query);
     }
 }
