@@ -9,7 +9,6 @@ import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +45,6 @@ public class MainController {
     ) throws ParseException, SpotifyWebApiException, IOException {
 
         // Fetch info
-
         var artistsSpotify = spotifyService.fetchArtistsFromPlaylist(playlistId);
         var artistLOD = LODService.fetchArtistInfo(artistsSpotify.stream().map(ArtistSimplified::getId).collect(Collectors.toList()));
 
@@ -73,8 +70,9 @@ public class MainController {
         }
         // Create a list of EnhancedArtists by mapping the artistSimplifed to the createEnhancedArtist function
         // together with the just created mapping.
-        artistsSpotify.stream().map(artistSimpl -> createEnhancedArtist(artistSimpl, lodMapping)).collect(Collectors.toList());
-        var enhancedArtists = new ArrayList<EnhancedArtist>();
+        var enhancedArtists = artistsSpotify.stream().map(
+            artistSimpl -> createEnhancedArtist(artistSimpl, lodMapping))
+            .collect(Collectors.toList());
 
         return ResponseEntity.ok(enhancedArtists);
     }

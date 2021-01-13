@@ -1,6 +1,7 @@
 package com.group135.final_project.services;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
@@ -43,7 +44,9 @@ public class LODService {
      * Fetch artist info from WikiData using the artist's Spotify ID
      */
     public static ResultSet fetchArtistInfo(Collection<String> spotifyIDs) {
-        String query = String.format(UNFINISHED_QUERY, String.join(",", spotifyIDs));
-        return fetchWikiData(query);
+      // Enclose all ID's in quotation marks
+      spotifyIDs = spotifyIDs.stream().map(s -> '"' + s + '"').collect(Collectors.toList());
+      String query = String.format(UNFINISHED_QUERY, String.join(",", spotifyIDs));
+      return fetchWikiData(query);
     }
 }
