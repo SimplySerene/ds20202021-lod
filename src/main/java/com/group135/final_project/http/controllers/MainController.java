@@ -1,5 +1,6 @@
 package com.group135.final_project.http.controllers;
 
+import com.group135.final_project.services.LODService;
 import com.group135.final_project.services.SpotifyService;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The touch point between our frontend and this API.
@@ -36,6 +38,9 @@ public class MainController {
     ) throws ParseException, SpotifyWebApiException, IOException {
         var artists = spotifyService.fetchArtistsFromPlaylist(playlistId);
         // TODO: Join with DBpedia and so on...
+        var artistInfo = LODService.fetchArtistInfo(artists.stream().map(ArtistSimplified::getId).collect(Collectors.toList()));
+
+
 
         return ResponseEntity.ok(artists);
     }
