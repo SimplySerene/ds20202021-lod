@@ -26,6 +26,7 @@
   </properties>
 
   <dependencies>
+    <!-- Spring Boot framework -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -34,7 +35,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -58,12 +58,14 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
     <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>jena-arq</artifactId>
         <version>3.17.0</version>
     </dependency>
+
     <!-- https://github.com/thelinmichael/spotify-web-api-java -->
     <dependency>
       <groupId>se.michaelthelin.spotify</groupId>
