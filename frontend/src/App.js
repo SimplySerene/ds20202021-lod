@@ -29,12 +29,15 @@ function App() {
           let newNumArtistResolved = 0
 
           for (const enhancedArtist of results) {
+              if (enhancedArtist.lodInfo.countryCodes !== null) {
+                  newNumArtistResolved++
+              }
+
               for (const countryCode of (enhancedArtist.lodInfo.countryCodes || [])) {
                   if (!newArtistsPerCountry[countryCode]) {
                       newArtistsPerCountry[countryCode] = []
                   }
                   newArtistsPerCountry[countryCode].push(enhancedArtist.spotifyArtist)
-                  newNumArtistResolved++
               }
           }
 
