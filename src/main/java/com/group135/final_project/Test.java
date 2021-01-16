@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.group135.final_project.services.LODService;
 
-import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 
 
