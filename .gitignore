@@ -45,3 +45,4 @@ src/main/resources/public/*
 
 ### RDF
 *.nt
+src/main/resources/application.properties
