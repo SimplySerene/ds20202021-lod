@@ -45,4 +45,6 @@ src/main/resources/public/*
 
 ### RDF
 *.nt
+
+### Spotify Client Secret
 src/main/resources/application.properties
