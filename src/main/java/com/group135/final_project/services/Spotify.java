@@ -27,12 +27,14 @@ public class Spotify {
     ) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+
+        api = new SpotifyApi.Builder()
+                .setClientId(clientId)
+                .setClientSecret(clientSecret)
+                .build();
     }
 
-    private final SpotifyApi api = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
-            .build();
+    private final SpotifyApi api;
 
     /**
      * This will be used to track if we need a new access token.
