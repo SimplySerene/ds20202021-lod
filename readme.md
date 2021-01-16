@@ -19,7 +19,10 @@ This repository contains the final project. It consists of two parts:
 
 ### Setting the secret keys for the Spotify API
 
-TODO
+1. Go to https://developer.spotify.com/dashboard/login and login with your spotify account.
+2. Create a new application. Here you can find a clientID and a clientSecret.
+3. Go to the config file`/src/main/resources/application.properties`.
+4. Update the properties `spotifyClientSecret` and `spotifyClientId` with the corresponding values obtained from the spotify application dashboard.
 
 ### Build and run
 
