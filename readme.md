@@ -17,6 +17,10 @@ This repository contains the final project. It consists of two parts:
 1. Install backend dependencies using `mvn install`
 2. Install frontend dependencies using `cd frontend && npm install`
 
+### Setting the secret keys for the Spotify API
+
+TODO
+
 ### Build and run
 
 1. Start the backend can be started using `TODO`.

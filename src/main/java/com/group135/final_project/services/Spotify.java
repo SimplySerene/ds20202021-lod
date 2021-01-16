@@ -3,6 +3,7 @@ package com.group135.final_project.services;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,16 @@ import java.time.LocalDateTime;
  */
 @Service
 public class Spotify {
-    private static final String clientId = "384237b4e98248f0b1d5ee4f901f6f7c";
-    private static final String clientSecret = "9e96c4c77ff64ba881aca2596c02b6ad";
+    private String clientId;
+    private String clientSecret;
+
+    public Spotify(
+            @Value("${spotifyClientSecret}") String clientSecret,
+            @Value("${spotifyClientId}") String clientId
+    ) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
 
     private final SpotifyApi api = new SpotifyApi.Builder()
             .setClientId(clientId)
