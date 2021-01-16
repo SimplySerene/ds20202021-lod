@@ -18,23 +18,18 @@ import java.time.LocalDateTime;
  */
 @Service
 public class Spotify {
-    private String clientId;
-    private String clientSecret;
+    private final SpotifyApi api;
 
     public Spotify(
             @Value("${spotifyClientSecret}") String clientSecret,
             @Value("${spotifyClientId}") String clientId
     ) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-
         api = new SpotifyApi.Builder()
                 .setClientId(clientId)
                 .setClientSecret(clientSecret)
                 .build();
     }
 
-    private final SpotifyApi api;
 
     /**
      * This will be used to track if we need a new access token.
