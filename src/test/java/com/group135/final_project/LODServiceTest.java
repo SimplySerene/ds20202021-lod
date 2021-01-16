@@ -6,8 +6,10 @@ import com.group135.final_project.services.LODService;
 
 import org.apache.jena.query.ResultSetFormatter;
 
-
-public class Test {
+/**
+ * Quick test for LODService with a static list of Spotify IDs.
+ */
+public class LODServiceTest {
     
 
     private static String str = 
