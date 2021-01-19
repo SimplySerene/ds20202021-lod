@@ -1,5 +1,9 @@
 # Final Project Data Science 2020/2021
 
+<a href="example.mov">
+![poster_image_for_video.png](poster_image_for_video.png)
+</a>
+
 This repository contains the final project. It consists of two parts:
 - A Spring Boot Java REST Api
 - A React frontend
