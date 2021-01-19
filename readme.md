@@ -28,3 +28,7 @@ This repository contains the final project. It consists of two parts:
 
 1. Start the backend can be started using `TODO`.
 2. Start the frontend using `cd frontend && npm run start`
+
+## Code Structure - Where to find what?
+
+# TODO
