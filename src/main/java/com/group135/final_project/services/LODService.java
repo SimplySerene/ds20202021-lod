@@ -18,7 +18,7 @@ public class LODService {
     private static final String UNFINISHED_QUERY = """ 
     PREFIX wdt: <http://www.wikidata.org/prop/direct/>
     SELECT distinct ?spotifyId ?artistIso ?citizenIso WHERE {
-        ?artist wdt:P1902 $spotifyId
+        ?artist wdt:P1902 ?spotifyId
         FILTER(?spotifyId in (%s))
         OPTIONAL {
           ?artist wdt:P495 ?country .
