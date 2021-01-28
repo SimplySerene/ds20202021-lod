@@ -33,6 +33,14 @@ This repository contains the final project. It consists of two parts:
 1. Start the backend can be started using `TODO`.
 2. Start the frontend using `cd frontend && npm run start`
 
-## Code Structure - Where to find what?
+## Core of the Code
 
-# TODO
+The two most interesting classes are the services that interact with the Spotify API and the Wikidata endpoint. 
+
+These classes can be found here:
+
+`BACK_END = master/src/main/java/com/group135/final_project/`
+
+`BACK_END/services/{LODService.java, SpotifyService.java}`
+
+Moreover, these services are used by the main controller, `BACK_END/http/controllers/MainController.java` which then combines the data using a data class, `BACK_END/model/EnhancedArtist.java`, which is then sent to the frontend for visualisation.
