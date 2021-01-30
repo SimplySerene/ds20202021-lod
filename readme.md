@@ -41,6 +41,6 @@ These classes can be found here:
 
 `BACK_END = master/src/main/java/com/group135/final_project/`
 
-`BACK_END/services/{LODService.java, SpotifyService.java}`
+`BACK_END/services/{LODService.java, WikidataIdResolver.java, SpotifyService.java}`
 
 Moreover, these services are used by the main controller, `BACK_END/http/controllers/MainController.java` which then combines the data using a data class, `BACK_END/model/EnhancedArtist.java`, which is then sent to the frontend for visualisation.
