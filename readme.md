@@ -30,7 +30,7 @@ This repository contains the final project. It consists of two parts:
 
 ### Build and run
 
-1. Start the backend can be started using `TODO`.
+1. Start the backend [like any other Spring application](https://spring.io/guides/gs/spring-boot/).
 2. Start the frontend using `cd frontend && npm run start`
 
 ## Core of the Code
